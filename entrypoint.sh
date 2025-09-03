@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 mkdir -p $HOME/.config
 cp -r /home/kicad/.config/kicad $HOME/.config/
@@ -40,6 +40,7 @@ for file in $INPUT_KICAD_SCH; do
   kicad-cli sch export bom \
     --output "$(dirname $file)/$INPUT_SCH_BOM_FILE" \
     --preset "$INPUT_SCH_BOM_PRESET" \
+    --format-preset "$INPUT_SCH_BOM_FORMAT_PRESET" \
     "$file"
 done
 fi
