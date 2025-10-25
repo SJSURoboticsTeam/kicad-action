@@ -20,7 +20,7 @@ jobs:
           kicad_pcb: 'test/test.kicad_pcb;test2/test2.kicad_pcb'
           pcb_gerbers: true
           pcb_image: true
-          output_dir: '/build'
+          output_dir: '${{ github.workspace }}/build'
 
       # Upload production files only if generation succeeded
       - name: Upload production data
@@ -29,10 +29,10 @@ jobs:
         with:
           name: Production files
           path: |
-            ${{ github.workspace }}/test/sch.pdf
-            ${{ github.workspace }}/test/bom.csv
-            ${{ github.workspace }}/test/gbr.zip
-            ${{ github.workspace }}/test/images
+            ${{ github.workspace }}/build/test/sch.pdf
+            ${{ github.workspace }}/build/test/bom.csv
+            ${{ github.workspace }}/build/test/gbr.zip
+            ${{ github.workspace }}/build/test/images
 
       - name: Run KiCad ERC with a json output format
         id: erc
@@ -58,7 +58,7 @@ jobs:
         if: ${{ failure() &&  steps.erc.conclusion == 'failure' }}
         with:
           name: erc.rpt
-          path: ${{ github.workspace }}/test/erc.rpt
+          path: ${{ github.workspace }}/build/test/erc.rpt
 
       # Upload DRC report only if DRC failed
       - name: Upload DRC report
@@ -66,5 +66,5 @@ jobs:
         if: ${{ failure() && steps.drc.conclusion == 'failure' }}
         with:
           name: drc.rpt
-          path: ${{ github.workspace }}/test/drc.rpt
+          path: ${{ github.workspace }}/build/test/drc.rpt
 
