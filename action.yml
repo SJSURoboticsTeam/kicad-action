@@ -64,6 +64,8 @@ inputs:
   pcb_model_flags:
     description: 'Flags to add when exporting STEP files'
     default: '--no-unspecified --no-dnp --include-tracks  --include-pads  --include-zones'
+  output_dir:
+    description: 'Where to output files'
   
 runs:
   using: 'docker'

@@ -15,7 +15,7 @@ if [[ -n $INPUT_KICAD_SCH ]] && [[ $INPUT_SCH_ERC = "true" ]]
 then
 for file in $INPUT_KICAD_SCH; do
   kicad-cli sch erc \
-    --output "$(dirname $file)/$INPUT_SCH_ERC_FILE" \
+    --output "$INPUT_OUTPUT_DIR/$(dirname $file)/$INPUT_SCH_ERC_FILE" \
     --format $INPUT_REPORT_FORMAT \
     --exit-code-violations \
     "$file"
@@ -28,7 +28,7 @@ if [[ -n $INPUT_KICAD_SCH ]] && [[ $INPUT_SCH_PDF = "true" ]]
 then
 for file in $INPUT_KICAD_SCH; do
   kicad-cli sch export pdf \
-    --output "$(dirname $file)/$INPUT_SCH_PDF_FILE" \
+    --output "$INPUT_OUTPUT_DIR/$(dirname $file)/$INPUT_SCH_PDF_FILE" \
     "$file"
 done
 fi
@@ -38,7 +38,7 @@ if [[ -n $INPUT_KICAD_SCH ]] && [[ $INPUT_SCH_BOM = "true" ]]
 then
 for file in $INPUT_KICAD_SCH; do
   kicad-cli sch export bom \
-    --output "$(dirname $file)/$INPUT_SCH_BOM_FILE" \
+    --output "$INPUT_OUTPUT_DIR/$(dirname $file)/$INPUT_SCH_BOM_FILE" \
     --preset "$INPUT_SCH_BOM_PRESET" \
     --format-preset "$INPUT_SCH_BOM_FORMAT_PRESET" \
     "$file"
@@ -50,7 +50,7 @@ if [[ -n $INPUT_KICAD_PCB ]] && [[ $INPUT_PCB_DRC = "true" ]]
 then
 for file in $INPUT_KICAD_PCB; do
   kicad-cli pcb drc \
-    --output "$(dirname $file)/$INPUT_PCB_DRC_FILE" \
+    --output "$INPUT_OUTPUT_DIR/$(dirname $file)/$INPUT_PCB_DRC_FILE" \
     --format $INPUT_REPORT_FORMAT \
     --exit-code-violations \
     "$file"
@@ -70,7 +70,7 @@ for file in $INPUT_KICAD_PCB; do
     --output "$GERBERS_DIR/" \
     "$file"
   zip -j \
-    "$(dirname $file)/$INPUT_PCB_GERBERS_FILE" \
+    "$INPUT_OUTPUT_DIR/$(dirname $file)/$INPUT_PCB_GERBERS_FILE" \
     "$GERBERS_DIR"/*
 done
 fi
@@ -78,7 +78,7 @@ fi
 if [[ -n $INPUT_KICAD_PCB ]] && [[ $INPUT_PCB_IMAGE = "true" ]]
 then
 for file in $INPUT_KICAD_PCB; do
-  directory=$(dirname $file)
+  directory=$INPUT_OUTPUT_DIR/$(dirname $file)
   mkdir -p "$directory/$INPUT_PCB_IMAGE_PATH"
   kicad-cli pcb render --side top \
     --output "$directory/$INPUT_PCB_IMAGE_PATH/top.png" \
@@ -93,7 +93,7 @@ if [[ -n $INPUT_KICAD_PCB ]] && [[ $INPUT_PCB_MODEL = "true" ]]
 then
 for file in $INPUT_KICAD_PCB; do
   kicad-cli pcb export step $INPUT_PCB_MODEL_FLAGS \
-    --output "$(dirname $file)/$INPUT_PCB_MODEL_FILE" \
+    --output "$INPUT_OUTPUT_DIR/$(dirname $file)/$INPUT_PCB_MODEL_FILE" \
     "$file"
 done
 fi
