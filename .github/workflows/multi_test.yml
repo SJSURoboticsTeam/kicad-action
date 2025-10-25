@@ -29,11 +29,7 @@ jobs:
         with:
           name: Production files
           path: |
-            ${{ github.workspace }}/build/test/sch.pdf
-            ${{ github.workspace }}/build/test/bom.csv
-            ${{ github.workspace }}/build/test/gbr.zip
-            ${{ github.workspace }}/build/test/images
-
+            ${{ github.workspace }}/build
       - name: Run KiCad ERC with a json output format
         id: erc
         uses: ./
