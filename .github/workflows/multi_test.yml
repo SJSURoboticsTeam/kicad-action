@@ -13,11 +13,15 @@ jobs:
         uses: ./
         if: '!cancelled()'
         with:
-          kicad_sch: 'test/test.kicad_sch;test2/test2.kicad_sch'
+          kicad_sch: >
+            test/test.kicad_sch;
+            test2/test2.kicad_sch
           sch_pdf: true
           sch_bom: true
           sch_bom_preset: 'My Preset'
-          kicad_pcb: 'test/test.kicad_pcb;test2/test2.kicad_pcb'
+          kicad_pcb: >
+            test/test.kicad_pcb;
+            test2/test2.kicad_pcb
           pcb_gerbers: true
           pcb_image: true
 
