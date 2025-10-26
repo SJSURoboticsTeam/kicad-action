@@ -8,7 +8,7 @@ cp -r /home/kicad/.config/kicad $HOME/.config/
 erc_violation=0 # ERC exit code
 drc_violation=0 # DRC exit code
 
-IFS=';'
+IFS=$'; \t\n'
 
 # Run ERC if requested
 if [[ -n $INPUT_KICAD_SCH ]] && [[ $INPUT_SCH_ERC = "true" ]]
